@@ -43,15 +43,15 @@ def actions(board):
     Returns set of all possible actions (i, j) available on the board.
     """
     if not terminal(board):
-        actions = set()
+        action_set = set()
         # iterate through the board
         for i, row in enumerate(board):
             for j, cell in enumerate(row):
                 if cell == EMPTY:
-                    actions.add((i, j))
-        return actions
+                    action_set.add((i, j))
+        return action_set
     else:
-        return EMPTY
+        return set()
 
 
 def result(board, action):
