@@ -58,8 +58,15 @@ def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
-    raise NotImplementedError
-
+    actions = actions(board)
+    if action not in actions:
+        raise RuntimeError("Not a valid action")
+    player = player(board)
+    i, j = action
+    new_board = board
+    new_board[i][j] = player
+    return new_board
+    
 
 def winner(board):
     """
