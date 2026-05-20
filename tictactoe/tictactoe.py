@@ -22,7 +22,20 @@ def player(board):
     """
     Returns player who has the next turn on a board.
     """
-    raise NotImplementedError
+    if not terminal(board):
+        moved = 0
+        # calculate the ammount of moves've been played
+        for row in board:
+            for cell in row:
+                if cell != EMPTY:
+                    moved += 1
+        # determine the move through even and odd number of moves
+        if moved & 1:
+            return O 
+        else: 
+            return X 
+    else:
+        return EMPTY
 
 
 def actions(board):
