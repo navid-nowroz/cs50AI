@@ -43,12 +43,12 @@ def actions(board):
     Returns set of all possible actions (i, j) available on the board.
     """
     if not terminal(board):
-        actions = {}
+        actions = set()
         # iterate through the board
-        for row in board:
-            for column in row:
-                if board[row][column] == EMPTY:
-                    actions.add((row, column))
+        for i, row in enumerate(board):
+            for j, cell in enumerate(row):
+                if cell == EMPTY:
+                    actions.add((i, j))
         return actions
     else:
         return EMPTY
