@@ -73,7 +73,16 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    raise NotImplementedError
+    # make a deepcopy to check the rows
+    row_check = deepcopy(board)
+    # check the rows
+    for row in row_check:
+        row = set(row)
+        if len(row) == 1:
+            if row == EMPTY: pass
+            else: return list(row)[0]
+    # check the columns 
+
 
 
 def terminal(board):
