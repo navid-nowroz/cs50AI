@@ -112,3 +112,16 @@ def check_rows(board):
         if len(row) == 1:
             if row == EMPTY: pass
             else: return list(row)[0]
+
+
+def transpose_board(board):
+    new_board = []
+    # loop though column indices (0, 1, 2)
+    for i in range(len(x[0])):
+        new_row = []
+        # loop through each row to grab the item at index i
+        for row in x:
+            new_row.append(row[i])
+        new_board.append(new_row)
+
+    return new_board
