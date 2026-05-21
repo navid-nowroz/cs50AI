@@ -77,8 +77,9 @@ def winner(board):
     row_val = check_rows(board)
     if row_val: return row_val
     # get the transposed board
-
-
+    transposed_board = transpose_board(board)
+    col_val = check_rows(transposed_board)
+    if col_val: return col_val
 
 
 def terminal(board):
@@ -104,14 +105,13 @@ def minimax(board):
 
 
 def check_rows(board):
-    # make a deepcopy of the board
-    row_check = deepcopy(board)
     # check the rows
-    for row in row_check:
-        row = set(row)
-        if len(row) == 1:
-            if row == EMPTY: pass
-            else: return list(row)[0]
+    for row in board:
+        set_row = set(row)
+        if len(set_row) == 1:
+            if set_row == {EMPTY}: pass
+            else: return set_row.pop()
+    return EMPTY
 
 
 def transpose_board(board):
@@ -123,5 +123,4 @@ def transpose_board(board):
         for row in board:
             new_row.append(row[i])
         new_board.append(new_row)
-
     return new_board
