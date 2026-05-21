@@ -117,10 +117,10 @@ def check_rows(board):
 def transpose_board(board):
     new_board = []
     # loop though column indices (0, 1, 2)
-    for i in range(len(x[0])):
+    for i in range(len(board[0])):
         new_row = []
         # loop through each row to grab the item at index i
-        for row in x:
+        for row in board:
             new_row.append(row[i])
         new_board.append(new_row)
 
