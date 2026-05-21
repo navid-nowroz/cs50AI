@@ -73,15 +73,11 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    # make a deepcopy to check the rows
-    row_check = deepcopy(board)
-    # check the rows
-    for row in row_check:
-        row = set(row)
-        if len(row) == 1:
-            if row == EMPTY: pass
-            else: return list(row)[0]
     # check the columns 
+    row_val = check_rows(board)
+    if row_val: return row_val
+    # get the transposed board
+
 
 
 
@@ -104,3 +100,15 @@ def minimax(board):
     Returns the optimal action for the current player on the board.
     """
     raise NotImplementedError
+
+
+
+def check_rows(board):
+    # make a deepcopy of the board
+    row_check = deepcopy(board)
+    # check the rows
+    for row in row_check:
+        row = set(row)
+        if len(row) == 1:
+            if row == EMPTY: pass
+            else: return list(row)[0]
