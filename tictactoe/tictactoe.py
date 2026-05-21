@@ -82,7 +82,7 @@ def winner(board):
     col_val = check_rows(transposed_board)
     if col_val: return col_val
     # Check the diagonals 
-    daig_val = check_diagonals(board)
+    diag_val = check_diagonals(board)
     if diag_val: return diag_val
     # check the transverse diagonal
     tra_diag_val = check_diagonals(transposed_board)
