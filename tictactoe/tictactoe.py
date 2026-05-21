@@ -3,6 +3,7 @@ Tic Tac Toe Player
 """
 
 import math
+import copy
 
 X = "X"
 O = "O"
@@ -63,7 +64,7 @@ def result(board, action):
         raise RuntimeError("Not a valid action")
     current_player = player(board)
     i, j = action
-    new_board = board
+    new_board = copy.deepcopy(board)
     new_board[i][j] = current_player
     return new_board
 
