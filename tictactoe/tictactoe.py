@@ -138,5 +138,5 @@ def check_diagonals(board):
     data_set = set()
     for indx, data in enumerate(board):
         data_set.add(data[indx])
-    if len(data_set) == 0: return data_set.pop()
+    if len(data_set) == 1: return data_set.pop()
     else: return EMPTY
