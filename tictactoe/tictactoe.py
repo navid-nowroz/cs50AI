@@ -87,6 +87,7 @@ def winner(board):
     # check the transverse diagonal
     tra_diag_val = check_diagonals(transposed_board)
     if tra_diag_val: return tra_diag_val
+    return EMPTY
 
 
 
@@ -119,7 +120,7 @@ def check_rows(board):
         set_row = set(row)
         if len(set_row) == 1:
             if set_row == {EMPTY}: pass
-            else: return set_row.pop()
+            else: return next(iter(set_row))
     return EMPTY
 
 
@@ -138,5 +139,5 @@ def check_diagonals(board):
     data_set = set()
     for indx, data in enumerate(board):
         data_set.add(data[indx])
-    if len(data_set) == 1: return data_set.pop()
+    if len(data_set) == 1 and not data_set == {EMPTY}: return next(iter(data_set))
     else: return EMPTY
