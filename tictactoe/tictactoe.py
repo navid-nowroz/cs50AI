@@ -73,13 +73,18 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    # check the columns 
+    # check the rows
     row_val = check_rows(board)
     if row_val: return row_val
     # get the transposed board
     transposed_board = transpose_board(board)
+    # check the columns 
     col_val = check_rows(transposed_board)
     if col_val: return col_val
+    # Check the diagonals
+    for indx, dat in enumerate(board):
+
+
 
 
 def terminal(board):
@@ -124,3 +129,11 @@ def transpose_board(board):
             new_row.append(row[i])
         new_board.append(new_row)
     return new_board
+
+def check_diagonals(board):
+    data_set = set()
+    for indx, data in enumerate(board):
+        data_set.add(data[indx])
+    if len(data_set) == 0: return data_set.pop()
+    else: return EMPTY
+    
