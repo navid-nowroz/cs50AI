@@ -2,7 +2,6 @@
 Tic Tac Toe Player
 """
 
-import math
 from copy import deepcopy
 
 X = "X"
@@ -25,7 +24,7 @@ def player(board):
     """
     if not terminal(board):
         moved = 0
-        # calculate the ammount of moves've been played
+        # calculate the amount of moves have been played
         for row in board:
             for cell in row:
                 if cell != EMPTY:
@@ -124,7 +123,6 @@ def minimax(board):
     """
     # return None if the board is in terminal state
     if terminal(board): return None
-    # 
 
 
 
