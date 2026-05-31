@@ -122,7 +122,9 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    raise NotImplementedError
+    # return None if the board is in terminal state
+    if terminal(board): return None
+    # 
 
 
 
@@ -153,3 +155,16 @@ def check_diagonals(board):
         data_set.add(data[indx])
     if len(data_set) == 1 and not data_set == {EMPTY}: return next(iter(data_set))
     else: return EMPTY
+
+
+def take_action(board):
+    turn = player(board)
+    if turn == O: minimize(board)
+    else: maximize(board)
+
+
+def minimize(board):
+    pass
+
+def maximize(board):
+    pass
