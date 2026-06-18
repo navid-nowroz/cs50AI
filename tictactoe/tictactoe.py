@@ -124,34 +124,31 @@ def minimax(board):
     # return None if the board is in terminal state
     is_maximizing = True if player(board) == X else False
 
-    if terminal(board):
-        return utility(board)
+    if terminal(board): return None
 
     current_player = player(board)
 
     if current_player == X:
         #Maximizer: try to maximize the score
-        max_score = float("-inf")
-        best_move = None
-
+        best_score = float("-inf")
+        best_action = None
         for action in actions(board):
-            new_board = result(board, action)
-            score = minimax(new_board)
-            if score > max_score:
-                max_score = score
-                best_move = action
-        return best_move
+            score = min_value(result(board, action))
+            if score > best_score:
+                best_score = score
+                best_action = action
+        return best_action
+
     else:
-        min_score = float("inf")
-        best_move = None
-
+        # Minimizer
+        best_score = float("inf")
+        best_action = None
         for action in actions(board):
-            new_board = result(board, action)
-            score = minimax(new_board)
-            if score < min_score:
-                min_score = score
-                best_move = action
-        return best_move
+            score = max_value(result(board, action))
+            if score < best_score:
+                best_score = score
+                best_action = action
+        return best_action
 
 
 
@@ -176,9 +173,33 @@ def transpose_board(board):
         new_board.append(new_row)
     return new_board
 
+
 def check_diagonals(board):
-    data_set = set()
-    for indx, data in enumerate(board):
-        data_set.add(data[indx])
-    if len(data_set) == 1 and not data_set == {EMPTY}: return next(iter(data_set))
-    else: return EMPTY
+    # main diagonal
+    main_diag = {board[i][i] for i in range(len(board))}
+    if len(main_diag) == 1 and EMPTY not in main_diag:
+        return next(iter(main_diag))
+
+    # anti-diagonal
+    anti_diag = {board[i][len(board) - 1 - i] for i in range(len(board))}
+    if len(anti_diag) == 1 and EMPTY not in anti_diag:
+        return next(iter(anti_diag))
+
+    return EMPTY
+
+
+def max_value(board):
+    if terminal(board):
+        return utility(board)
+    v = float("-inf")
+    for action in actions(board):
+        v = max(v, min_value(result(board, action)))
+    return v
+
+def min_value(board):
+    if terminal(board):
+        return utility(board)
+    v = float("inf")
+    for action in actions(board):
+        v = min(v, max_value(result(board, action)))
+    return v
