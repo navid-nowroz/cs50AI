@@ -122,7 +122,36 @@ def minimax(board):
     Returns the optimal action for the current player on the board.
     """
     # return None if the board is in terminal state
-    if terminal(board): return None
+    is_maximizing = True if player(board) == X else False
+
+    if terminal(board):
+        return utility(board)
+
+    current_player = player(board)
+
+    if current_player == X:
+        #Maximizer: try to maximize the score
+        max_score = float("-inf")
+        best_move = None
+
+        for action in actions(board):
+            new_board = result(board, action)
+            score = minimax(new_board)
+            if score > max_score:
+                max_score = score
+                best_move = action
+        return best_move
+    else:
+        min_score = float("inf")
+        best_move = None
+
+        for action in actions(board):
+            new_board = result(board, action)
+            score = minimax(new_board)
+            if score < min_score:
+                min_score = score
+                best_move = action
+        return best_move
 
 
 
@@ -153,16 +182,3 @@ def check_diagonals(board):
         data_set.add(data[indx])
     if len(data_set) == 1 and not data_set == {EMPTY}: return next(iter(data_set))
     else: return EMPTY
-
-
-def take_action(board):
-    turn = player(board)
-    if turn == O: minimize(board)
-    else: maximize(board)
-
-
-def minimize(board):
-    pass
-
-def maximize(board):
-    pass
