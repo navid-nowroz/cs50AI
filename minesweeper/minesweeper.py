@@ -213,8 +213,10 @@ class MinesweeperAI():
         # add the sentence to the knowledge base
         self.knowledge.append(sentence)
 
-        # 4th & 5th step
-        
+        # Adding the mines through inference && Adding the safes through inference
+        for sent in self.knowledge:
+            self.mines.update(sent.known_mines())
+            self.safes.update(sent.known_safes())
 
     def make_safe_move(self):
         """
