@@ -195,7 +195,23 @@ class MinesweeperAI():
             5) add any new sentences to the AI's knowledge base
                if they can be inferred from existing knowledge
         """
-        raise NotImplementedError
+        self.moves_made.add(cell)
+        self.mark_safe(cell)
+        # get the list of the cells other than the given cell
+        possibles = set()
+        i, j = cell
+        for x in range(i - 1, i + 2):
+            for y in range(j - 1, j + 2):
+                if self.width - 1 >= x >= 0 and self.height -1 >= y >= 0 and (x,y) not in self.safes:
+                    if (x,y) in self.mines:
+                        count -= 1
+                    else:
+                        possibles.add((x,y))
+        possibles.discard(cell)
+        # make the sentence with given count
+        sentence = Sentence(possibles, count)
+        # add the sentence to the knowledge base
+        self.knowledge.append(sentence)
 
     def make_safe_move(self):
         """
@@ -206,7 +222,11 @@ class MinesweeperAI():
         This function may use the knowledge in self.mines, self.safes
         and self.moves_made, but should not modify any of those values.
         """
-        raise NotImplementedError
+        possible_moves = [move for move in self.safes if move not in self.moves_made]
+        if len(possible_moves) == 0:
+            return None
+        chosen_cell = random.choice(possible_moves)
+        return chosen_cell
 
     def make_random_move(self):
         """
@@ -215,4 +235,13 @@ class MinesweeperAI():
             1) have not already been chosen, and
             2) are not known to be mines
         """
-        raise NotImplementedError
+        all_moves = list()
+        for x in range(self.width):
+            for y in range(self.height):
+                all_moves.append((x,y))
+        possible_moves = [move for move in all_moves if move not in self.mines and move not in self.moves_made]
+        if len(possible_moves) == 0:
+            return None
+        else:
+            chosen_cell = random.choice(possible_moves)
+            return chosen_cell
