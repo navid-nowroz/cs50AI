@@ -202,7 +202,7 @@ class MinesweeperAI():
         i, j = cell
         for x in range(i - 1, i + 2):
             for y in range(j - 1, j + 2):
-                if self.width - 1 >= x >= 0 and self.height -1 >= y >= 0 and (x,y) not in self.safes:
+                if self.height - 1 >= x >= 0 and self.width -1 >= y >= 0 and (x,y) not in self.safes:
                     if (x,y) in self.mines:
                         count -= 1
                     else:
@@ -212,6 +212,9 @@ class MinesweeperAI():
         sentence = Sentence(possibles, count)
         # add the sentence to the knowledge base
         self.knowledge.append(sentence)
+
+        # 4th & 5th step
+        
 
     def make_safe_move(self):
         """
@@ -236,8 +239,8 @@ class MinesweeperAI():
             2) are not known to be mines
         """
         all_moves = list()
-        for x in range(self.width):
-            for y in range(self.height):
+        for x in range(self.height):
+            for y in range(self.width):
                 all_moves.append((x,y))
         possible_moves = [move for move in all_moves if move not in self.mines and move not in self.moves_made]
         if len(possible_moves) == 0:
