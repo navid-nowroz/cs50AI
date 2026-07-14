@@ -220,13 +220,17 @@ class MinesweeperAI():
             for t in list(sent.known_safes()):
                 self.mark_safe(t)
         # inferencing the whole knowledge base to get to new decisions(sentences)
+        new_knowledge = list()
         for sub in self.knowledge:
             for sup in self.knowledge:
                 if sup.cells > sub.cells:
                     updated_cells = sup.cells - sub.cells
                     updated_count = sup.count - sub.count
                     new_sentence = Sentence(updated_cells, updated_count)
-                    self.knowledge.append(new_sentence)
+                    new_knowledge.append(new_sentence)
+        for knowledge in new_knowledge:
+            if not knowledge in self.knowledge:
+                self.knowledge.append(knowledge)
 
     def make_safe_move(self):
         """
