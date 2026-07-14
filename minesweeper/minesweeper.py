@@ -208,10 +208,14 @@ class MinesweeperAI():
                     else:
                         possibles.add((x,y))
         possibles.discard(cell)
+        # initialization of the propagation anchor
+        changed = False
         # make the sentence with given count
-        sentence = Sentence(possibles, count)
-        # add the sentence to the knowledge base
-        self.knowledge.append(sentence)
+        if len(possibles) != 0:
+            sentence = Sentence(possibles, count)
+            # add the sentence to the knowledge base && initiate the propagation loop
+            self.knowledge.append(sentence)
+            changed = True # records the change in knowledge as a new sentence is added
 
         # marking the cell as mine or safe and updating the whole knowledge base
         for sent in self.knowledge.copy():
