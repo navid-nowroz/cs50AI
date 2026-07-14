@@ -217,12 +217,17 @@ class MinesweeperAI():
             self.knowledge.append(sentence)
             changed = True # records the change in knowledge as a new sentence is added
 
-        # marking the cell as mine or safe and updating the whole knowledge base
-        for sent in self.knowledge.copy():
-            for s in list(sent.known_mines()):
-                self.mark_mine(s)
-            for t in list(sent.known_safes()):
-                self.mark_safe(t)
+        # starting the propagation loop
+        while changed:
+            changed = False # stops the infinite loop
+            # marking the cell as mine or safe and updating the whole knowledge base (Step 4)
+            for sent in self.knowledge.copy():
+                for s in sent.known_mines():
+                    self.mark_mine(s)
+                    changed = True
+                for t in sent.known_safes():
+                    self.mark_safe(t)
+                    changed = True
         # inferencing the whole knowledge base to get to new decisions(sentences)
         new_knowledge = list()
         for sub in self.knowledge:
