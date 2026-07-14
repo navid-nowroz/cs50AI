@@ -222,11 +222,11 @@ class MinesweeperAI():
             changed = False # stops the infinite loop
             # marking the cell as mine or safe and updating the whole knowledge base (Step 4)
             for sent in self.knowledge.copy():
-                for s in sent.known_mines():
+                for s in list(sent.known_mines()):
                     if s not in self.mines:
                         self.mark_mine(s)
                         changed = True
-                for t in sent.known_safes():
+                for t in list(sent.known_safes()):
                     if t not in self.safes:
                         self.mark_safe(t)
                         changed = True
